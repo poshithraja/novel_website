@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARRATIVE | Featured Slider</title>
+    <title>NARRATIVE | Luxury Minimalist</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,6 @@
     <style>
         :root {
             --bg-color: #050505;
-            --card-bg: #0f0f0f;
             --text-main: #e0e0e0;
             --text-muted: #888888;
             --accent: #D4AF37;
@@ -27,13 +26,14 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent scroll when overlays are open */
         }
 
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
+        button { background: none; border: none; cursor: pointer; color: inherit; font-family: inherit; }
 
-        /* --- Header --- */
+        /* --- HEADER --- */
         header {
             padding: 1.5rem 4%;
             display: flex;
@@ -48,177 +48,141 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo { font-size: 1.5rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; }
-        nav ul { display: flex; gap: 2rem; list-style: none; }
-        nav a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
-        nav a.active { color: var(--accent); }
+        .logo { font-size: 1.5rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; z-index: 1001; }
 
-        /* --- HERO SLIDER SECTION --- */
-        .hero-section {
-            padding-top: 100px;
-            padding-bottom: 2rem;
-        }
-
-        .hero-scroll-wrapper {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 0 4%;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .hero-scroll-wrapper::-webkit-scrollbar { display: none; }
-
-        .hero-slide {
-            min-width: 92vw;
-            height: 75vh;
-            position: relative;
-            scroll-snap-align: center;
-            border-radius: 8px;
-            overflow: hidden;
+        .header-actions {
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-color: #111;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            gap: 2rem;
+            z-index: 1001;
         }
 
-        .slide-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.4; transition: transform 5s ease;
+        /* Search Button (Icon) */
+        .search-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: #fff;
+            transition: stroke 0.3s;
         }
-        .hero-slide:hover .slide-bg { transform: scale(1.05); }
+        .search-btn:hover svg { stroke: var(--accent); }
 
-        .hero-slide::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, #050505 10%, transparent 60%, rgba(0,0,0,0.6) 100%);
-            z-index: 1;
+        /* Menu Button (Text) */
+        .menu-btn {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            color: #fff;
+            position: relative;
         }
-
-        .hero-content {
-            position: relative; z-index: 2; max-width: 800px; padding: 0 2rem; transform: translateY(20px);
-        }
-
-        .tag {
-            display: inline-block; color: var(--accent); border: 1px solid var(--accent);
-            padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;
-            text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        .hero-author {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic;
-            color: #ddd; margin-bottom: 1.5rem; display: block;
-        }
-        .hero-author::before { content: '— '; color: var(--accent); }
-
-        .hero-content p {
-            font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; line-height: 1.6;
-            max-width: 600px; margin-left: auto; margin-right: auto;
-        }
-
-        .hero-btn {
-            display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem;
-            font-weight: 600; letter-spacing: 0.05em; border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        }
-        .hero-btn:hover { background: var(--accent); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
-
-        /* --- Horizontal Rail Styles --- */
-        section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         
-        .section-header {
-            padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;
+        .menu-btn::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px;
+            background: var(--accent); transition: width 0.3s;
+        }
+        .menu-btn:hover::after { width: 100%; }
+
+
+        /* --- SEARCH OVERLAY --- */
+        .search-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 0;
+            background: #0a0a0a;
+            z-index: 999;
+            overflow: hidden;
+            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; align-items: center; justify-content: center;
         }
 
+        .search-overlay.active { height: 30vh; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        .search-input {
+            background: transparent; border: none; border-bottom: 1px solid #333;
+            font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff;
+            width: 60%; padding: 1rem 0; outline: none; text-align: center;
+        }
+        .search-input::placeholder { color: #333; font-style: italic; }
+        
+        .close-search {
+            position: absolute; top: 2rem; right: 4%; font-size: 2rem; color: #555;
+        }
+        .close-search:hover { color: #fff; }
+
+
+        /* --- FULLSCREEN MENU OVERLAY --- */
+        .menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 998;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        .menu-overlay.active { opacity: 1; pointer-events: all; }
+
+        .menu-links {
+            display: flex; flex-direction: column; align-items: center; gap: 2rem;
+        }
+
+        .menu-link {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .menu-link:hover { color: var(--accent); transform: scale(1.05); }
+        
+        .menu-footer {
+            position: absolute; bottom: 3rem; font-size: 0.8rem; color: #444; text-transform: uppercase; letter-spacing: 0.1em;
+        }
+
+        /* --- PAGE CONTENT (Hero, Rails, etc) --- */
+        .hero-section { padding-top: 100px; padding-bottom: 2rem; }
+        .hero-scroll-wrapper { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 4%; scrollbar-width: none; }
+        .hero-scroll-wrapper::-webkit-scrollbar { display: none; }
+        .hero-slide { min-width: 92vw; height: 75vh; position: relative; scroll-snap-align: center; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; background-color: #111; }
+        .slide-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: transform 5s ease; }
+        .hero-slide:hover .slide-bg { transform: scale(1.05); }
+        .hero-slide::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #050505 10%, transparent 60%, rgba(0,0,0,0.6) 100%); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 2rem; transform: translateY(20px); }
+        .tag { display: inline-block; color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem; }
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .hero-author { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: #ddd; margin-bottom: 1.5rem; display: block; }
+        .hero-author::before { content: '— '; color: var(--accent); }
+        .hero-content p { font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-btn { display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem; font-weight: 600; letter-spacing: 0.05em; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .hero-btn:hover { background: var(--accent); }
+
+        /* Rails & Footer Styles from previous step... */
+        section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .section-header { padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
         .section-title { font-size: 2rem; color: #fff; }
         .view-more { font-size: 0.85rem; color: var(--accent); }
-
-        .scroll-rail {
-            display: flex; gap: var(--rail-gap); overflow-x: auto; padding: 1rem 4% 2rem 4%;
-            scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none;
-        }
+        .scroll-rail { display: flex; gap: var(--rail-gap); overflow-x: auto; padding: 1rem 4% 2rem 4%; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .scroll-rail::-webkit-scrollbar { display: none; }
-
-        .book-card {
-            flex: 0 0 var(--cover-width); scroll-snap-align: start; cursor: pointer; transition: transform 0.3s;
-        }
+        .book-card { flex: 0 0 var(--cover-width); scroll-snap-align: start; cursor: pointer; transition: transform 0.3s; }
         .book-card:hover { transform: translateY(-8px); }
-
-        .cover-art {
-            width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden;
-            margin-bottom: 0.8rem; position: relative;
-        }
+        .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; position: relative; }
         .cover-art img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .badge {
-            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff;
-            font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2);
-        }
-
+        .badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
         .book-info h3 { font-size: 1.1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .book-info p { font-size: 0.8rem; color: var(--text-muted); }
-
-        /* --- Brand Signature --- */
-        .brand-signature {
-            padding: 6rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--bg-color), #0a0a0a);
-            border-top: 1px solid rgba(255,255,255,0.03);
-        }
-        .brand-title {
-            font-size: 4rem; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--accent);
-            background: linear-gradient(180deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .brand-signature { padding: 6rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--bg-color), #0a0a0a); border-top: 1px solid rgba(255,255,255,0.03); }
+        .brand-title { font-size: 4rem; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--accent); background: linear-gradient(180deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .brand-desc { max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: 1rem; line-height: 1.8; font-weight: 300; }
-        .brand-desc strong { color: #e0e0e0; font-weight: 500; }
+        footer { background: #000; padding: 3rem 4% 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-copyright { font-size: 0.75rem; color: #444; }
 
-        /* --- NEW FOOTER --- */
-        footer {
-            background: #000;
-            padding: 3rem 4% 2rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            font-size: 0.85rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 400;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .footer-copyright {
-            font-size: 0.75rem;
-            color: #444;
-        }
-
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .hero-slide { min-width: 90vw; height: 65vh; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-author { font-size: 1.4rem; }
-            nav { display: none; }
-            :root { --cover-width: 130px; }
             .brand-title { font-size: 3rem; }
-            .footer-links { gap: 1.5rem; flex-direction: column; }
+            .menu-link { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -226,49 +190,68 @@
 
     <header>
         <div class="logo">NARRATIVE.</div>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Trending</a></li>
-                <li><a href="#">Genres</a></li>
-                <li><a href="#">Authors</a></li>
-            </ul>
-        </nav>
+        <div class="header-actions">
+            <!-- Search Icon Button -->
+            <button class="search-btn" id="searchTrigger" aria-label="Search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <!-- Menu Text Button -->
+            <button class="menu-btn" id="menuTrigger">MENU</button>
+        </div>
     </header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="close-search" id="closeSearch">&times;</button>
+        <input type="text" class="search-input" placeholder="Type to search...">
+    </div>
+
+    <!-- MENU OVERLAY -->
+    <div class="menu-overlay" id="menuOverlay">
+        <nav class="menu-links">
+            <a href="#" class="menu-link">Home</a>
+            <a href="#" class="menu-link">About Us</a>
+            <a href="#" class="menu-link">Trending</a>
+            <a href="#" class="menu-link">Authors</a>
+            <a href="#" class="menu-link">Sign In</a>
+        </nav>
+        <div class="menu-footer">
+            Narrative &copy; 2025
+        </div>
+    </div>
 
     <!-- HERO SLIDER -->
     <div class="hero-section">
         <div class="hero-scroll-wrapper">
-            <!-- Slide 1 -->
             <div class="hero-slide">
                 <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
                 <div class="hero-content">
                     <span class="tag">Featured Premiere</span>
                     <h1>The Glass <br>Symphony</h1>
                     <span class="hero-author">Elena Vance</span>
-                    <p>A masterpiece of suspense that shatters every expectation. The critics are calling it the novel of the decade.</p>
+                    <p>A masterpiece of suspense that shatters every expectation.</p>
                     <a href="#" class="hero-btn">Start Reading</a>
                 </div>
             </div>
-            <!-- Slide 2 -->
             <div class="hero-slide">
                 <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
                 <div class="hero-content">
                     <span class="tag">Trending Fantasy</span>
                     <h1>Kingdom of <br>Ash & Bone</h1>
                     <span class="hero-author">K.R. Martin</span>
-                    <p>In a world where magic is forbidden, one sorcerer rises to reclaim the throne that was stolen centuries ago.</p>
+                    <p>In a world where magic is forbidden, one sorcerer rises.</p>
                     <a href="#" class="hero-btn">Read Chapter 1</a>
                 </div>
             </div>
-             <!-- Slide 3 -->
              <div class="hero-slide">
                 <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
                 <div class="hero-content">
                     <span class="tag">Editor's Choice</span>
                     <h1>Neon <br>Vendetta</h1>
                     <span class="hero-author">Arthur West</span>
-                    <p>A cyberpunk noir thriller set in the rain-soaked streets of New Tokyo. Justice has a price.</p>
+                    <p>A cyberpunk noir thriller set in the rain-soaked streets.</p>
                     <a href="#" class="hero-btn">View Series</a>
                 </div>
             </div>
@@ -282,74 +265,25 @@
             <a href="#" class="view-more">View All</a>
         </div>
         <div class="scroll-rail">
-            <div class="book-card">
-                <div class="cover-art">
-                    <span class="badge">#1 Top</span>
-                    <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Silent Echoes</h3><p>Mystery • 4.9★</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi • 4.8★</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <span class="badge">Hot</span>
-                    <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Velvet Night</h3><p>Romance • 4.7★</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>The Architect</h3><p>Thriller • 4.6★</p></div>
-            </div>
-             <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Lost City</h3><p>Adventure • 4.5★</p></div>
-            </div>
+            <div class="book-card"><div class="cover-art"><span class="badge">#1 Top</span><img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Silent Echoes</h3><p>Mystery • 4.9★</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi • 4.8★</p></div></div>
+            <div class="book-card"><div class="cover-art"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Velvet Night</h3><p>Romance • 4.7★</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>The Architect</h3><p>Thriller • 4.6★</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Lost City</h3><p>Adventure • 4.5★</p></div></div>
         </div>
     </section>
 
-    <!-- LATEST RELEASES RAIL -->
+    <!-- LATEST RAIL -->
     <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
             <a href="#" class="view-more">View All</a>
         </div>
         <div class="scroll-rail">
-            <div class="book-card">
-                <div class="cover-art">
-                    <span class="badge">New</span>
-                    <img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Winter's End</h3><p>Drama • Just Now</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <span class="badge">Updated</span>
-                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Code Breaker</h3><p>Tech • 1h ago</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>The Alchemist</h3><p>Fantasy • 2h ago</p></div>
-            </div>
-            <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info"><h3>Stellar Drift</h3><p>Sci-Fi • 5h ago</p></div>
-            </div>
+            <div class="book-card"><div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Winter's End</h3><p>Drama • Just Now</p></div></div>
+            <div class="book-card"><div class="cover-art"><span class="badge">Updated</span><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Code Breaker</h3><p>Tech • 1h ago</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>The Alchemist</h3><p>Fantasy • 2h ago</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Stellar Drift</h3><p>Sci-Fi • 5h ago</p></div></div>
         </div>
     </section>
 
@@ -358,13 +292,10 @@
         <h1 class="brand-title">NARRATIVE.</h1>
         <p class="brand-desc">
             We believe stories are the architecture of the soul. 
-            <strong>Narrative</strong> is a curated digital library designed for the modern reader, blending 
-            minimalist aesthetics with immersive storytelling. From raw data to woven worlds, 
-            we bring the next generation of novels to your fingertips.
+            <strong>Narrative</strong> is a curated digital library designed for the modern reader.
         </p>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-links">
             <a href="#">About Us</a>
@@ -376,6 +307,50 @@
             &copy; 2025 Narrative Inc. All rights reserved.
         </div>
     </footer>
+
+    <!-- INTERACTION SCRIPTS -->
+    <script>
+        const menuBtn = document.getElementById('menuTrigger');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        const searchBtn = document.getElementById('searchTrigger');
+        const searchOverlay = document.getElementById('searchOverlay');
+        const closeSearch = document.getElementById('closeSearch');
+
+        // Toggle Menu
+        menuBtn.addEventListener('click', () => {
+            menuOverlay.classList.toggle('active');
+            if(menuOverlay.classList.contains('active')) {
+                menuBtn.textContent = 'CLOSE';
+                searchOverlay.classList.remove('active'); // Close search if open
+            } else {
+                menuBtn.textContent = 'MENU';
+            }
+        });
+
+        // Open Search
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.add('active');
+            document.querySelector('.search-input').focus();
+            
+            // Close menu if open
+            menuOverlay.classList.remove('active');
+            menuBtn.textContent = 'MENU';
+        });
+
+        // Close Search
+        closeSearch.addEventListener('click', () => {
+            searchOverlay.classList.remove('active');
+        });
+
+        // Close overlays when clicking a link
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOverlay.classList.remove('active');
+                menuBtn.textContent = 'MENU';
+            });
+        });
+    </script>
 
 </body>
 </html>
