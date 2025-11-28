@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 142: The Thaw Begins | Narrative</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-read: #111111;     /* Deep charcoal, easier on eyes than pure black */
-            --text-read: #d1d1d1;   /* Soft grey text */
+            --bg-read: #111111;
+            --text-read: #d1d1d1;
             --accent: #D4AF37;
-            --font-serif: 'Merriweather', serif; /* High readability serif */
+            --font-serif: 'Merriweather', serif;
             --font-ui: 'Inter', sans-serif;
         }
 
@@ -24,7 +24,7 @@
             background-color: var(--bg-read);
             color: var(--text-read);
             font-family: var(--font-serif);
-            line-height: 1.9; /* Generous leading for reading */
+            line-height: 1.9;
             font-size: 18px;
             transition: background 0.3s, color 0.3s;
         }
@@ -32,129 +32,57 @@
         a { text-decoration: none; color: inherit; }
         button { background: none; border: none; cursor: pointer; color: inherit; font-family: inherit; }
 
-        /* --- READING PROGRESS BAR --- */
-        .progress-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: transparent; z-index: 1002;
-        }
-        .progress-bar {
-            height: 100%; width: 0%; background: var(--accent); transition: width 0.1s;
-        }
+        /* PROGRESS BAR */
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: transparent; z-index: 1002; }
+        .progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.1s; }
 
-        /* --- AUTO-HIDING HEADER --- */
+        /* HEADER */
         .reader-header {
-            position: fixed; top: 0; width: 100%;
-            padding: 1rem 5%;
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(17, 17, 17, 0.95);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            z-index: 1001;
-            transition: transform 0.3s ease;
+            background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1001; transition: transform 0.3s ease;
         }
-
         .reader-header.hidden { transform: translateY(-100%); }
 
-        .back-link {
-            font-family: var(--font-ui); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888;
-        }
+        .back-link { font-family: var(--font-ui); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
         .back-link:hover { color: var(--accent); }
-
-        .chapter-meta {
-            font-family: var(--font-ui); font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em;
-        }
-
+        .chapter-meta { font-family: var(--font-ui); font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
         .settings-btn svg { width: 24px; height: 24px; fill: #888; transition: fill 0.3s; }
         .settings-btn:hover svg { fill: var(--text-read); }
 
-        /* --- READER CONTENT --- */
-        .reader-container {
-            max-width: 740px; /* Optimal line length for reading */
-            margin: 0 auto;
-            padding: 120px 20px 150px; /* Top/Bottom padding for fixed bars */
-        }
+        /* CONTENT */
+        .reader-container { max-width: 740px; margin: 0 auto; padding: 120px 20px 150px; }
+        .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; line-height: 1.2; margin-bottom: 3rem; text-align: center; color: #e0e0e0; }
+        .prose { margin-bottom: 2rem; }
+        .prose p { margin-bottom: 1.5em; text-align: left; }
+        .prose p:first-of-type::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 4rem; float: left; line-height: 0.8; margin-right: 0.1em; color: var(--accent); }
 
-        .chapter-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            line-height: 1.2;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: #e0e0e0;
-        }
-
-        .prose {
-            margin-bottom: 2rem;
-        }
-
-        .prose p {
-            margin-bottom: 1.5em;
-            text-align: left; /* Justified or Left aligned */
-        }
-
-        /* Drop Cap for first letter */
-        .prose p:first-of-type::first-letter {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
-            float: left;
-            line-height: 0.8;
-            margin-right: 0.1em;
-            color: var(--accent);
-        }
-
-        /* --- FOOTER NAVIGATION --- */
+        /* FOOTER */
         .reader-footer {
-            position: fixed; bottom: 0; width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(17, 17, 17, 0.95);
-            backdrop-filter: blur(5px);
+            position: fixed; bottom: 0; width: 100%; padding: 1.5rem 5%;
+            background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(5px);
             border-top: 1px solid rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 1001;
-            transition: transform 0.3s ease;
+            z-index: 1001; transition: transform 0.3s ease;
         }
-        
         .reader-footer.hidden { transform: translateY(100%); }
-
-        .nav-btn {
-            font-family: var(--font-ui);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #888;
-            padding: 0.5rem 1rem;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
+        .nav-btn { font-family: var(--font-ui); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; padding: 0.5rem 1rem; border: 1px solid transparent; border-radius: 4px; transition: 0.3s; }
         .nav-btn:hover { color: #fff; border-color: #333; }
         .nav-btn.primary { color: var(--accent); }
-        
-        /* --- SETTINGS MENU (Hidden by default) --- */
-        .settings-panel {
-            position: fixed; top: 70px; right: 5%;
-            background: #222;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 1005;
-            display: none;
-            border: 1px solid #333;
-        }
-        .settings-panel.active { display: block; }
 
+        /* SETTINGS */
+        .settings-panel { position: fixed; top: 70px; right: 5%; background: #222; padding: 1.5rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1005; display: none; border: 1px solid #333; }
+        .settings-panel.active { display: block; }
         .setting-group { margin-bottom: 1rem; }
         .setting-label { display: block; font-family: var(--font-ui); font-size: 0.7rem; text-transform: uppercase; color: #666; margin-bottom: 0.5rem; }
-        
         .theme-options { display: flex; gap: 0.5rem; }
         .theme-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
         .theme-btn.selected { border-color: var(--accent); }
-
-        /* Theme Colors */
         .bg-dark { background: #111; }
         .bg-light { background: #f5f5f5; }
         .bg-sepia { background: #e8dcb5; }
 
-        /* --- Responsive --- */
         @media (max-width: 600px) {
             .chapter-title { font-size: 2.2rem; }
             body { font-size: 16px; padding: 0 10px; }
@@ -163,14 +91,10 @@
     </style>
 </head>
 <body id="readerBody">
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <!-- Header -->
     <header class="reader-header" id="readerHeader">
+        <!-- BACK TO NOVEL DETAILS -->
         <a href="novel.html" class="back-link">&larr; Back</a>
         <span class="chapter-meta">Winter's End &bull; Ch. 142</span>
         <button class="settings-btn" id="settingsTrigger">
@@ -178,7 +102,6 @@
         </button>
     </header>
 
-    <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
         <div class="setting-group">
             <span class="setting-label">Theme</span>
@@ -195,17 +118,60 @@
         </div>
     </div>
 
-    <!-- Content -->
     <main class="reader-container">
         <h1 class="chapter-title">The Thaw Begins</h1>
-        
         <div class="prose">
-            <p>The silence of the manor was not empty; it was heavy, pressed down by the weight of centuries of snow. Elara stood by the frosted window, her breath misting against the glass, watching the white expanse of the courtyard. For the first time in weeks, the storm had broken. A pale, watery sun struggled against the grey clouds, casting long, anaemic shadows across the drifts.</p>
-            
+            <p>The silence of the manor was not empty; it was heavy, pressed down by the weight of centuries of snow. Elara stood by the frosted window, her breath misting against the glass, watching the white expanse of the courtyard.</p>
             <p>"It's melting," she whispered, though there was no one there to hear her. The statement felt like a transgression, a challenge to the frozen entity that held the house in its grip.</p>
-            
-            <p>She turned away from the window, the floorboards groaning beneath her feet. The sound echoed through the cavernous hallway, a reminder of her isolation. She had come here seeking solitude, an escape from the noise of the city, but she had found only a deafening quiet that seemed to amplify her own thoughts until they were shouting.</p>
-            
-            <p>The library was her sanctuary. Walls lined with books that smelled of dust and old paper, a scent that grounded her. She walked to the heavy oak desk in the center of the room, running her fingers over the carved surface. Here, at least, the cold seemed less intrusive.</p>
-            
-            <p>But today, something was different. A draft, faint but distinct, brushed against her cheek. She frowned, looking around. The windows were sealed tight against the winter. The heavy velvet drapes hung motionless. Yet, the air moved, carrying with it a scent that
+            <p>She turned away from the window, the floorboards groaning beneath her feet. The sound echoed through the cavernous hallway, a reminder of her isolation.</p>
+             <p>But today, something was different. A draft, faint but distinct, brushed against her cheek. She frowned, looking around. The windows were sealed tight against the winter. The heavy velvet drapes hung motionless. Yet, the air moved, carrying with it a scent that didn't belong in this tomb of a house—the smell of damp earth and decaying leaves.</p>
+            <p>Elara followed the draft, moving deeper into the shadows of the library. It led her to the corner where the history section lay, rows of leather-bound volumes detailing the lineage of the Blackwood family. One book, in particular, seemed to be the source. It sat slightly askew on the shelf, as if someone had pulled it out and hastily shoved it back.</p>
+            <p>Hesitantly, she reached out. The leather was cold to the touch, unnaturally so. As she pulled the book free, a mechanism clicked. The shelf shuddered and swung inward, revealing a darkness that swallowed the dim light of the library. A hidden passage.</p>
+        </div>
+        <div style="text-align: center; margin-top: 4rem; color: #666; font-size: 2rem;">&lowast; &lowast; &lowast;</div>
+    </main>
+
+    <nav class="reader-footer" id="readerFooter">
+        <button class="nav-btn">&larr; Prev</button>
+        <button class="nav-btn primary">Next Chapter &rarr;</button>
+    </nav>
+
+    <script>
+        const header = document.getElementById('readerHeader');
+        const footer = document.getElementById('readerFooter');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const settingsBtn = document.getElementById('settingsTrigger');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.classList.add('hidden'); footer.classList.add('hidden'); settingsPanel.classList.remove('active');
+            } else {
+                header.classList.remove('hidden'); footer.classList.remove('hidden');
+            }
+            lastScroll = currentScroll;
+        });
+
+        settingsBtn.addEventListener('click', () => settingsPanel.classList.toggle('active'));
+
+        function setTheme(theme) {
+            const body = document.body;
+            body.style.backgroundColor = ''; body.style.color = '';
+            if (theme === 'light') { body.style.backgroundColor = '#f5f5f5'; body.style.color = '#333'; }
+            else if (theme === 'sepia') { body.style.backgroundColor = '#e8dcb5'; body.style.color = '#4a3c31'; }
+            else { body.style.backgroundColor = '#111'; body.style.color = '#d1d1d1'; }
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        let currentSize = 18;
+        function adjustFont(amount) { currentSize += amount; document.body.style.fontSize = currentSize + 'px'; }
+    </script>
+</body>
+</html>
