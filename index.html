@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARRATIVE | Full Focus</title>
+    <title>NARRATIVE | Direct Access</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,26 +68,28 @@
         .hero-content p { font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
         .hero-btn { display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem; font-weight: 600; letter-spacing: 0.05em; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
 
-        /* --- CENTER-FOCUSED RAILS (Shared Styles) --- */
+        /* --- CENTER-FOCUSED RAILS --- */
         section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .section-header { padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
         .section-title { font-size: 2rem; color: #fff; }
         
-        /* The .focus-rail class applies the padding needed for centering */
         .scroll-rail.focus-rail {
             display: flex;
             gap: var(--rail-gap);
             overflow-x: auto;
-            padding: 3rem 50vw 4rem 50vw; /* Key for centering logic */
+            padding: 3rem 50vw 4rem 50vw;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
             align-items: center;
         }
         .scroll-rail::-webkit-scrollbar { display: none; }
 
-        .book-card {
+        /* Updated .book-card to be an anchor tag friendly container */
+        .book-card-link {
+            display: block; /* Ensure anchor behaves like a block */
             flex: 0 0 var(--cover-width);
             scroll-snap-align: center;
+            text-decoration: none; /* Remove default link underline */
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             opacity: 0.4;
@@ -95,30 +97,14 @@
             position: relative;
         }
 
-        .book-card.active { opacity: 1; transform: scale(1.2); z-index: 10; }
+        .book-card-link.active { opacity: 1; transform: scale(1.2); z-index: 10; }
         .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .cover-art img { width: 100%; height: 100%; object-fit: cover; }
         .badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
         .book-info { opacity: 0; transition: opacity 0.3s; text-align: center; }
-        .book-card.active .book-info { opacity: 1; transform: translateY(10px); }
+        .book-card-link.active .book-info { opacity: 1; transform: translateY(10px); }
         .book-info h3 { font-size: 1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
         .book-info p { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
-
-        /* --- MODAL --- */
-        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .modal-backdrop.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); width: 90%; max-width: 900px; display: grid; grid-template-columns: 300px 1fr; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8); transform: translateY(30px); transition: transform 0.4s ease; position: relative; }
-        .modal-backdrop.active .modal-content { transform: translateY(0); }
-        .modal-img-wrapper { position: relative; height: 100%; background: #000; }
-        .modal-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .modal-details { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
-        .modal-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: #666; background: none; border: none; cursor: pointer; transition: color 0.3s; z-index: 10; }
-        .modal-close:hover { color: #fff; }
-        .modal-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
-        .modal-title { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; color: #fff; }
-        .modal-author { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #aaa; margin-bottom: 2rem; display: block; }
-        .modal-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 2.5rem; }
-        .modal-btn { background: var(--accent); color: #000; padding: 1rem 2rem; font-weight: 600; letter-spacing: 0.05em; display: inline-block; text-align: center; width: max-content; }
 
         /* --- FOOTER --- */
         .brand-signature { padding: 6rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--bg-color), #0a0a0a); border-top: 1px solid rgba(255,255,255,0.03); }
@@ -130,9 +116,7 @@
         .footer-copyright { font-size: 0.75rem; color: #444; }
 
         @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; max-width: 400px; margin: 20px; max-height: 90vh; overflow-y: auto; }
-            .modal-img-wrapper { height: 250px; }
-            .scroll-rail.focus-rail { padding: 3rem 35vw 4rem 35vw; } /* Mobile padding */
+            .scroll-rail.focus-rail { padding: 3rem 35vw 4rem 35vw; }
         }
     </style>
 </head>
@@ -159,21 +143,6 @@
             <a href="#" class="menu-link">Authors</a>
         </nav>
         <div class="menu-footer">Narrative &copy; 2025</div>
-    </div>
-
-    <!-- MODAL -->
-    <div class="modal-backdrop" id="quickViewModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <div class="modal-img-wrapper"><img src="" alt="Book Cover" class="modal-img" id="modalImg"></div>
-            <div class="modal-details">
-                <span class="modal-tag">Selected Title</span>
-                <h2 class="modal-title" id="modalTitle">Title</h2>
-                <span class="modal-author" id="modalAuthor">Author</span>
-                <p class="modal-desc" id="modalDesc">Description goes here...</p>
-                <a href="#" class="modal-btn">Start Reading</a>
-            </div>
-        </div>
     </div>
 
     <div class="hero-section">
@@ -208,57 +177,57 @@
             <a href="#" class="view-more">Drag to Explore</a>
         </div>
         <div class="scroll-rail focus-rail" id="trendingRail">
-            <div class="book-card" data-title="Silent Echoes" data-author="By Elena Vance" data-desc="A twisting mystery that defies physics." data-img="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop">
+            <!-- Converted to Anchor Tags for Direct Navigation -->
+            <a href="#read-book-silent-echoes" class="book-card-link">
                 <div class="cover-art"><span class="badge">#1 Top</span><img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Silent Echoes</h3><p>Mystery</p></div>
-            </div>
-            <div class="book-card" data-title="Dark Horizons" data-author="By J.S. Core" data-desc="The galaxy is about to change." data-img="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop">
+            </a>
+            <a href="#read-book-dark-horizons" class="book-card-link">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi</p></div>
-            </div>
-            <div class="book-card" data-title="Velvet Night" data-author="By Sarah O'Conner" data-desc="Trust is a currency they cannot afford." data-img="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop">
+            </a>
+            <a href="#read-book-velvet-night" class="book-card-link">
                 <div class="cover-art"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Velvet Night</h3><p>Romance</p></div>
-            </div>
-            <div class="book-card" data-title="The Architect" data-author="By M.K. Ultra" data-desc="Trapped in one of his own creations." data-img="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop">
+            </a>
+            <a href="#read-book-architect" class="book-card-link">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>The Architect</h3><p>Thriller</p></div>
-            </div>
-             <div class="book-card" data-title="Lost City" data-author="By A. Croft" data-desc="The jungle hides more than just ruins." data-img="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop">
+            </a>
+             <a href="#read-book-lost-city" class="book-card-link">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Lost City</h3><p>Adventure</p></div>
-            </div>
+            </a>
         </div>
     </section>
 
-    <!-- LATEST RAIL (NOW INTERACTIVE) -->
+    <!-- LATEST RAIL -->
     <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
             <a href="#" class="view-more">Drag to Explore</a>
         </div>
-        <!-- Added "focus-rail" class and ID -->
         <div class="scroll-rail focus-rail" id="latestRail">
             
-            <div class="book-card" data-title="Winter's End" data-author="By L. James" data-desc="A dramatic retelling of the winter of 1840." data-img="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop">
+            <a href="#read-book-winters-end" class="book-card-link">
                 <div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Winter's End</h3><p>Drama</p></div>
-            </div>
+            </a>
 
-            <div class="book-card" data-title="Code Breaker" data-author="By R. Turing" data-desc="Silicon Valley secrets come to light." data-img="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop">
+            <a href="#read-book-code-breaker" class="book-card-link">
                 <div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Code Breaker</h3><p>Tech</p></div>
-            </div>
+            </a>
 
-            <div class="book-card" data-title="The Alchemist" data-author="By P. Coe" data-desc="A journey of destiny." data-img="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop">
+            <a href="#read-book-alchemist" class="book-card-link">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>The Alchemist</h3><p>Fantasy</p></div>
-            </div>
+            </a>
             
-            <div class="book-card" data-title="Stellar Drift" data-author="By C. Sagan" data-desc="Lost in the void of space." data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop">
+            <a href="#read-book-stellar" class="book-card-link">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Stellar Drift</h3><p>Sci-Fi</p></div>
-            </div>
+            </a>
 
         </div>
     </section>
@@ -284,39 +253,18 @@
         const searchBtn = document.getElementById('searchTrigger');
         const searchOverlay = document.getElementById('searchOverlay');
         const closeSearch = document.getElementById('closeSearch');
-        const modal = document.getElementById('quickViewModal');
-        const closeModal = document.getElementById('closeModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalAuthor = document.getElementById('modalAuthor');
-        const modalDesc = document.getElementById('modalDesc');
 
         menuBtn.addEventListener('click', () => { menuOverlay.classList.toggle('active'); menuBtn.textContent = menuOverlay.classList.contains('active') ? 'CLOSE' : 'MENU'; searchOverlay.classList.remove('active'); });
         searchBtn.addEventListener('click', () => { searchOverlay.classList.add('active'); document.querySelector('.search-input').focus(); menuOverlay.classList.remove('active'); menuBtn.textContent = 'MENU'; });
         closeSearch.addEventListener('click', () => searchOverlay.classList.remove('active'));
-        closeModal.addEventListener('click', () => modal.classList.remove('active'));
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-        // --- MODAL TRIGGER ---
-        document.querySelectorAll('.book-card').forEach(card => {
-            card.addEventListener('click', () => {
-                if(card.hasAttribute('data-title')) {
-                    modalTitle.textContent = card.getAttribute('data-title');
-                    modalAuthor.textContent = card.getAttribute('data-author');
-                    modalDesc.textContent = card.getAttribute('data-desc');
-                    modalImg.src = card.getAttribute('data-img');
-                    modal.classList.add('active');
-                }
-            });
-        });
-
 
         // --- SHARED CENTER FOCUS LOGIC ---
         function initFocusRail(railId) {
             const rail = document.getElementById(railId);
             if (!rail) return;
             
-            const cards = rail.querySelectorAll('.book-card');
+            // Notice we now select .book-card-link instead of .book-card
+            const cards = rail.querySelectorAll('.book-card-link');
 
             function updateFocus() {
                 const railCenter = rail.getBoundingClientRect().left + rail.offsetWidth / 2;
