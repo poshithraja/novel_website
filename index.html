@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARRATIVE | Luxury Minimalist</title>
+    <title>NARRATIVE | Center Focus</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +15,8 @@
             --text-main: #e0e0e0;
             --text-muted: #888888;
             --accent: #D4AF37;
-            --rail-gap: 1.5rem;
-            --cover-width: 160px;
+            --rail-gap: 2rem; /* Increased gap for scale effect */
+            --cover-width: 180px; /* Slightly larger for impact */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,61 +35,27 @@
 
         /* --- HEADER --- */
         header {
-            padding: 1.5rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem 4%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
         .logo { font-size: 1.5rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; z-index: 1001; }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            z-index: 1001;
-        }
-
+        .header-actions { display: flex; align-items: center; gap: 2rem; z-index: 1001; }
         .search-btn svg { width: 20px; height: 20px; stroke: #fff; transition: stroke 0.3s; }
-        .search-btn:hover svg { stroke: var(--accent); }
-
         .menu-btn { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; color: #fff; position: relative; }
-        .menu-btn::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px; background: var(--accent); transition: width 0.3s; }
-        .menu-btn:hover::after { width: 100%; }
 
-
-        /* --- OVERLAYS (Search & Menu) --- */
-        .search-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 0;
-            background: #0a0a0a; z-index: 999; overflow: hidden;
-            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; align-items: center; justify-content: center;
-        }
+        /* --- OVERLAYS --- */
+        .search-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 0; background: #0a0a0a; z-index: 999; overflow: hidden; transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; justify-content: center; }
         .search-overlay.active { height: 30vh; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .search-input { background: transparent; border: none; border-bottom: 1px solid #333; font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; width: 60%; padding: 1rem 0; outline: none; text-align: center; }
         .close-search { position: absolute; top: 2rem; right: 4%; font-size: 2rem; color: #555; }
-        .close-search:hover { color: #fff; }
-
-        .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px);
-            z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
+        
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .menu-overlay.active { opacity: 1; pointer-events: all; }
         .menu-links { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
         .menu-link { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: #888; cursor: pointer; transition: color 0.3s, transform 0.3s; }
         .menu-link:hover { color: var(--accent); transform: scale(1.05); }
         .menu-footer { position: absolute; bottom: 3rem; font-size: 0.8rem; color: #444; text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* --- HERO & RAILS --- */
+        /* --- HERO --- */
         .hero-section { padding-top: 100px; padding-bottom: 2rem; }
         .hero-scroll-wrapper { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 4%; scrollbar-width: none; }
         .hero-scroll-wrapper::-webkit-scrollbar { display: none; }
@@ -104,21 +70,73 @@
         .hero-author::before { content: '— '; color: var(--accent); }
         .hero-content p { font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
         .hero-btn { display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem; font-weight: 600; letter-spacing: 0.05em; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .hero-btn:hover { background: var(--accent); }
 
+        /* --- CENTER-FOCUSED RAIL (Key Logic) --- */
         section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .section-header { padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
         .section-title { font-size: 2rem; color: #fff; }
-        .view-more { font-size: 0.85rem; color: var(--accent); }
-        .scroll-rail { display: flex; gap: var(--rail-gap); overflow-x: auto; padding: 1rem 4% 2rem 4%; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        
+        .scroll-rail {
+            display: flex;
+            gap: var(--rail-gap);
+            overflow-x: auto;
+            /* Padding ensures first/last items can be centered */
+            padding: 3rem 50vw 4rem 50vw; 
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            align-items: center; /* Vertically center items for scale effect */
+        }
         .scroll-rail::-webkit-scrollbar { display: none; }
-        .book-card { flex: 0 0 var(--cover-width); scroll-snap-align: start; cursor: pointer; transition: transform 0.3s; }
-        .book-card:hover { transform: translateY(-8px); }
-        .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; position: relative; pointer-events: none; /* Let click pass to card */ }
+
+        .book-card {
+            flex: 0 0 var(--cover-width);
+            scroll-snap-align: center; /* Important: Snap to center */
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0.4; /* Default state: Dimmed */
+            transform: scale(0.9); /* Default state: Small */
+            position: relative;
+        }
+
+        /* Active Class (Added via JS) */
+        .book-card.active {
+            opacity: 1;
+            transform: scale(1.2); /* High Lift */
+            z-index: 10;
+        }
+
+        .cover-art {
+            width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
         .cover-art img { width: 100%; height: 100%; object-fit: cover; }
         .badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
-        .book-info h3 { font-size: 1.1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .book-info p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        /* Hide info on non-active items to reduce clutter */
+        .book-info {
+            opacity: 0; transition: opacity 0.3s; text-align: center;
+        }
+        .book-card.active .book-info { opacity: 1; transform: translateY(10px); }
+        
+        .book-info h3 { font-size: 1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
+        .book-info p { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
+
+
+        /* --- MODAL (Same as before) --- */
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal-backdrop.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); width: 90%; max-width: 900px; display: grid; grid-template-columns: 300px 1fr; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8); transform: translateY(30px); transition: transform 0.4s ease; position: relative; }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+        .modal-img-wrapper { position: relative; height: 100%; background: #000; }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .modal-details { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .modal-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: #666; background: none; border: none; cursor: pointer; transition: color 0.3s; z-index: 10; }
+        .modal-close:hover { color: #fff; }
+        .modal-tag { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
+        .modal-title { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; color: #fff; }
+        .modal-author { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #aaa; margin-bottom: 2rem; display: block; }
+        .modal-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 2.5rem; }
+        .modal-btn { background: var(--accent); color: #000; padding: 1rem 2rem; font-weight: 600; letter-spacing: 0.05em; display: inline-block; text-align: center; width: max-content; }
 
         /* --- FOOTER --- */
         .brand-signature { padding: 6rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--bg-color), #0a0a0a); border-top: 1px solid rgba(255,255,255,0.03); }
@@ -127,60 +145,12 @@
         footer { background: #000; padding: 3rem 4% 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .footer-links { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .footer-links a { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; }
-        .footer-links a:hover { color: var(--accent); }
         .footer-copyright { font-size: 0.75rem; color: #444; }
 
-        /* --- QUICK VIEW MODAL (NEW) --- */
-        .modal-backdrop {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-        }
-        .modal-backdrop.active { opacity: 1; pointer-events: all; }
-
-        .modal-content {
-            background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1);
-            width: 90%; max-width: 900px;
-            display: grid; grid-template-columns: 300px 1fr;
-            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8);
-            transform: translateY(30px); transition: transform 0.4s ease;
-            position: relative;
-        }
-        .modal-backdrop.active .modal-content { transform: translateY(0); }
-
-        .modal-img-wrapper { position: relative; height: 100%; background: #000; }
-        .modal-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        
-        .modal-details { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
-        
-        .modal-close {
-            position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: #666;
-            background: none; border: none; cursor: pointer; transition: color 0.3s; z-index: 10;
-        }
-        .modal-close:hover { color: #fff; }
-
-        .modal-tag {
-            color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block;
-        }
-        .modal-title { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; color: #fff; }
-        .modal-author { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #aaa; margin-bottom: 2rem; display: block; }
-        .modal-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 2.5rem; }
-
-        .modal-btn {
-            background: var(--accent); color: #000; padding: 1rem 2rem;
-            font-weight: 600; letter-spacing: 0.05em; display: inline-block;
-            text-align: center; width: max-content;
-        }
-        .modal-btn:hover { background: #fff; }
-
-        /* Mobile Modal */
         @media (max-width: 768px) {
             .modal-content { grid-template-columns: 1fr; max-width: 400px; margin: 20px; max-height: 90vh; overflow-y: auto; }
             .modal-img-wrapper { height: 250px; }
-            .modal-title { font-size: 2.2rem; }
-            .brand-title { font-size: 3rem; }
+            .scroll-rail { padding: 3rem 35vw 4rem 35vw; } /* Adjust padding for mobile center */
         }
     </style>
 </head>
@@ -189,20 +159,16 @@
     <header>
         <div class="logo">NARRATIVE.</div>
         <div class="header-actions">
-            <button class="search-btn" id="searchTrigger">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+            <button class="search-btn" id="searchTrigger"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button class="menu-btn" id="menuTrigger">MENU</button>
         </div>
     </header>
 
-    <!-- SEARCH OVERLAY -->
     <div class="search-overlay" id="searchOverlay">
         <button class="close-search" id="closeSearch">&times;</button>
         <input type="text" class="search-input" placeholder="Type to search...">
     </div>
 
-    <!-- MENU OVERLAY -->
     <div class="menu-overlay" id="menuOverlay">
         <nav class="menu-links">
             <a href="#" class="menu-link">Home</a>
@@ -213,13 +179,11 @@
         <div class="menu-footer">Narrative &copy; 2025</div>
     </div>
 
-    <!-- QUICK VIEW MODAL -->
+    <!-- MODAL -->
     <div class="modal-backdrop" id="quickViewModal">
         <div class="modal-content">
             <button class="modal-close" id="closeModal">&times;</button>
-            <div class="modal-img-wrapper">
-                <img src="" alt="Book Cover" class="modal-img" id="modalImg">
-            </div>
+            <div class="modal-img-wrapper"><img src="" alt="Book Cover" class="modal-img" id="modalImg"></div>
             <div class="modal-details">
                 <span class="modal-tag">Selected Title</span>
                 <h2 class="modal-title" id="modalTitle">Title</h2>
@@ -230,7 +194,6 @@
         </div>
     </div>
 
-    <!-- HERO SLIDER -->
     <div class="hero-section">
         <div class="hero-scroll-wrapper">
             <div class="hero-slide">
@@ -256,89 +219,53 @@
         </div>
     </div>
 
-    <!-- TRENDING RAIL (Interactive) -->
+    <!-- TRENDING RAIL WITH CENTER FOCUS -->
     <section class="list-section">
         <div class="section-header">
             <h2>Trending Now</h2>
-            <a href="#" class="view-more">View All</a>
+            <a href="#" class="view-more">Drag to Explore</a>
         </div>
-        <div class="scroll-rail" id="trendingRail">
+        <!-- "focus-rail" class triggers the JS logic -->
+        <div class="scroll-rail focus-rail" id="trendingRail">
             
-            <!-- Item 1 -->
-            <div class="book-card" 
-                 data-title="Silent Echoes" 
-                 data-author="By Elena Vance" 
-                 data-desc="When a renowned architect vanishes, the blueprints he left behind reveal a city that doesn't exist... yet. A twisting mystery that defies physics."
-                 data-img="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop">
-                <div class="cover-art">
-                    <span class="badge">#1 Top</span>
-                    <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info">
-                    <h3>Silent Echoes</h3>
-                    <p>Mystery • 4.9★</p>
-                </div>
+            <div class="book-card" data-title="Silent Echoes" data-author="By Elena Vance" data-desc="A twisting mystery that defies physics." data-img="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><span class="badge">#1 Top</span><img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Silent Echoes</h3><p>Mystery</p></div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="book-card"
-                 data-title="Dark Horizons"
-                 data-author="By J.S. Core"
-                 data-desc="Commander Shepard finds an artifact that predates the stars themselves. The galaxy is about to change, and not for the better."
-                 data-img="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info">
-                    <h3>Dark Horizons</h3>
-                    <p>Sci-Fi • 4.8★</p>
-                </div>
+            <div class="book-card" data-title="Dark Horizons" data-author="By J.S. Core" data-desc="The galaxy is about to change." data-img="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi</p></div>
             </div>
 
-            <!-- Item 3 -->
-            <div class="book-card"
-                 data-title="Velvet Night"
-                 data-author="By Sarah O'Conner"
-                 data-desc="A romance blossoming amidst the Victorian underground espionage network. Trust is a currency they cannot afford."
-                 data-img="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop">
-                <div class="cover-art">
-                    <span class="badge">Hot</span>
-                    <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info">
-                    <h3>Velvet Night</h3>
-                    <p>Romance • 4.7★</p>
-                </div>
+            <div class="book-card" data-title="Velvet Night" data-author="By Sarah O'Conner" data-desc="Trust is a currency they cannot afford." data-img="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Velvet Night</h3><p>Romance</p></div>
             </div>
             
-            <!-- Item 4 -->
-            <div class="book-card"
-                 data-title="The Architect"
-                 data-author="By M.K. Ultra"
-                 data-desc="He builds mazes for the government. Now he is trapped in one of his own creations."
-                 data-img="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info">
-                    <h3>The Architect</h3>
-                    <p>Thriller • 4.6★</p>
-                </div>
+            <div class="book-card" data-title="The Architect" data-author="By M.K. Ultra" data-desc="Trapped in one of his own creations." data-img="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>The Architect</h3><p>Thriller</p></div>
+            </div>
+
+            <div class="book-card" data-title="Lost City" data-author="By A. Croft" data-desc="The jungle hides more than just ruins." data-img="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Lost City</h3><p>Adventure</p></div>
             </div>
 
         </div>
     </section>
 
-    <!-- LATEST RAIL (Static for now) -->
+    <!-- LATEST RAIL (Normal Scroll) -->
     <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
             <a href="#" class="view-more">View All</a>
         </div>
-        <div class="scroll-rail">
-            <div class="book-card"><div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Winter's End</h3><p>Drama • Just Now</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Code Breaker</h3><p>Tech • 1h ago</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>The Alchemist</h3><p>Fantasy • 2h ago</p></div></div>
+        <div class="scroll-rail" style="padding: 1rem 4% 2rem 4%;"> <!-- Override padding for normal rail -->
+            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>Winter's End</h3><p>Drama</p></div></div>
+            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>Code Breaker</h3><p>Tech</p></div></div>
+            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>The Alchemist</h3><p>Fantasy</p></div></div>
         </div>
     </section>
 
@@ -356,16 +283,13 @@
         <div class="footer-copyright">&copy; 2025 Narrative Inc.</div>
     </footer>
 
-    <!-- INTERACTION SCRIPTS -->
     <script>
-        // UI Elements
+        // --- EXISTING LOGIC (Menu, Search, Modal) ---
         const menuBtn = document.getElementById('menuTrigger');
         const menuOverlay = document.getElementById('menuOverlay');
         const searchBtn = document.getElementById('searchTrigger');
         const searchOverlay = document.getElementById('searchOverlay');
         const closeSearch = document.getElementById('closeSearch');
-        
-        // Modal Elements
         const modal = document.getElementById('quickViewModal');
         const closeModal = document.getElementById('closeModal');
         const modalImg = document.getElementById('modalImg');
@@ -373,52 +297,62 @@
         const modalAuthor = document.getElementById('modalAuthor');
         const modalDesc = document.getElementById('modalDesc');
 
-        // --- MENU & SEARCH LOGIC ---
-        menuBtn.addEventListener('click', () => {
-            menuOverlay.classList.toggle('active');
-            menuBtn.textContent = menuOverlay.classList.contains('active') ? 'CLOSE' : 'MENU';
-            searchOverlay.classList.remove('active');
-        });
-
-        searchBtn.addEventListener('click', () => {
-            searchOverlay.classList.add('active');
-            document.querySelector('.search-input').focus();
-            menuOverlay.classList.remove('active');
-            menuBtn.textContent = 'MENU';
-        });
-
+        menuBtn.addEventListener('click', () => { menuOverlay.classList.toggle('active'); menuBtn.textContent = menuOverlay.classList.contains('active') ? 'CLOSE' : 'MENU'; searchOverlay.classList.remove('active'); });
+        searchBtn.addEventListener('click', () => { searchOverlay.classList.add('active'); document.querySelector('.search-input').focus(); menuOverlay.classList.remove('active'); menuBtn.textContent = 'MENU'; });
         closeSearch.addEventListener('click', () => searchOverlay.classList.remove('active'));
+        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
-        // --- MODAL LOGIC (TRENDING RAIL) ---
-        // Select all book cards inside the trending rail
-        const trendingCards = document.querySelectorAll('#trendingRail .book-card');
-
-        trendingCards.forEach(card => {
+        // --- MODAL TRIGGER FOR ALL CARDS ---
+        document.querySelectorAll('.book-card').forEach(card => {
             card.addEventListener('click', () => {
-                // 1. Get data from clicked card
-                const title = card.getAttribute('data-title');
-                const author = card.getAttribute('data-author');
-                const desc = card.getAttribute('data-desc');
-                const img = card.getAttribute('data-img');
-
-                // 2. Populate Modal
-                modalTitle.textContent = title;
-                modalAuthor.textContent = author;
-                modalDesc.textContent = desc;
-                modalImg.src = img;
-
-                // 3. Show Modal
-                modal.classList.add('active');
+                if(card.hasAttribute('data-title')) {
+                    modalTitle.textContent = card.getAttribute('data-title');
+                    modalAuthor.textContent = card.getAttribute('data-author');
+                    modalDesc.textContent = card.getAttribute('data-desc');
+                    modalImg.src = card.getAttribute('data-img');
+                    modal.classList.add('active');
+                }
             });
         });
 
-        // Close Modal Logic
-        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+
+        // --- CENTER FOCUS LOGIC (The New Stuff) ---
+        const rail = document.getElementById('trendingRail');
+        const cards = rail.querySelectorAll('.book-card');
+
+        function updateFocus() {
+            const railCenter = rail.getBoundingClientRect().left + rail.offsetWidth / 2;
+            
+            // Find which card is closest to center
+            let closestCard = null;
+            let minDistance = Infinity;
+
+            cards.forEach(card => {
+                const cardCenter = card.getBoundingClientRect().left + card.offsetWidth / 2;
+                const distance = Math.abs(railCenter - cardCenter);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestCard = card;
+                }
+            });
+
+            // Update classes
+            cards.forEach(card => {
+                if (card === closestCard) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+
+        // Listen for scroll
+        rail.addEventListener('scroll', updateFocus);
         
-        // Close modal if clicking outside the content box
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
-        });
+        // Initial calculation
+        updateFocus();
 
     </script>
 
