@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winter's End | Narrative</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* --- HEADER (Simplified) --- */
+        /* --- HEADER --- */
         header {
             padding: 1.5rem 4%; display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid var(--border);
@@ -52,115 +52,37 @@
         }
 
         /* --- LEFT SIDEBAR (Sticky Info) --- */
-        .novel-sidebar {
-            position: sticky;
-            top: 120px; /* Space for header */
-            height: fit-content;
-        }
+        .novel-sidebar { position: sticky; top: 120px; height: fit-content; }
+        .novel-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); margin-bottom: 1.5rem; }
 
-        .novel-cover {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            border-radius: 4px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            margin-bottom: 1.5rem;
-        }
-
-        .novel-stats {
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            margin-bottom: 1.5rem;
-        }
-
+        .novel-stats { display: flex; justify-content: space-between; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1rem 0; margin-bottom: 1.5rem; }
         .stat-item { text-align: center; }
         .stat-value { font-size: 1.2rem; font-weight: 600; display: block; color: #fff; }
         .stat-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; }
 
-        .primary-btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background: var(--text-main);
-            color: #000;
-            text-align: center;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-            border: 1px solid var(--text-main);
-        }
+        .primary-btn { display: block; width: 100%; padding: 1rem; background: var(--text-main); color: #000; text-align: center; text-transform: uppercase; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 1rem; border: 1px solid var(--text-main); }
         .primary-btn:hover { background: var(--accent); border-color: var(--accent); }
 
-        .bookmark-btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            text-align: center;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-        }
+        .bookmark-btn { display: block; width: 100%; padding: 1rem; border: 1px solid var(--border); color: var(--text-muted); text-align: center; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; }
         .bookmark-btn:hover { border-color: #fff; color: #fff; }
 
-
-        /* --- RIGHT CONTENT (Info & Chapters) --- */
+        /* --- RIGHT CONTENT --- */
         .novel-header h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
         .novel-author { font-size: 1.2rem; color: var(--accent); font-style: italic; margin-bottom: 2rem; display: block; }
-        
         .novel-tags { display: flex; gap: 0.8rem; margin-bottom: 2rem; }
         .tag { font-size: 0.75rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 50px; color: var(--text-muted); }
-
-        .novel-synopsis {
-            color: #ccc;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 4rem;
-            max-width: 700px;
-        }
+        .novel-synopsis { color: #ccc; font-size: 1.05rem; line-height: 1.8; margin-bottom: 4rem; max-width: 700px; }
 
         /* Chapter List */
-        .chapter-section-title {
-            font-size: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-        
-        .chapter-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chapter-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            cursor: pointer;
-            transition: background 0.2s, padding-left 0.2s;
-        }
-
-        .chapter-row:hover {
-            background: rgba(255,255,255,0.02);
-            padding-left: 1rem;
-        }
-
+        .chapter-section-title { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: baseline; }
+        .chapter-list { display: flex; flex-direction: column; }
+        .chapter-row { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; transition: background 0.2s, padding-left 0.2s; }
+        .chapter-row:hover { background: rgba(255,255,255,0.02); padding-left: 1rem; }
         .chapter-info { display: flex; gap: 1.5rem; align-items: baseline; }
         .chapter-num { color: var(--accent); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; min-width: 30px; }
         .chapter-title { font-size: 1rem; font-weight: 400; }
         .chapter-date { font-size: 0.8rem; color: #555; }
 
-        /* Mobile */
         @media (max-width: 850px) {
             .novel-container { grid-template-columns: 1fr; gap: 2rem; }
             .novel-sidebar { position: relative; top: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -168,44 +90,28 @@
             .novel-header h1 { font-size: 2.5rem; text-align: center; }
             .novel-author { text-align: center; }
             .novel-tags { justify-content: center; }
-            .primary-btn { max-width: 400px; margin: 0 auto 1rem auto; }
-            .bookmark-btn { max-width: 400px; margin: 0 auto; }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo">NARRATIVE.</div>
         <a href="index.html" class="back-btn">&larr; Back to Home</a>
     </header>
 
     <div class="novel-container">
-        
-        <!-- Sidebar -->
         <aside class="novel-sidebar">
             <img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover" class="novel-cover">
-            
             <div class="novel-stats">
-                <div class="stat-item">
-                    <span class="stat-value">4.8</span>
-                    <span class="stat-label">Rating</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">142</span>
-                    <span class="stat-label">Chapters</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">2.1M</span>
-                    <span class="stat-label">Views</span>
-                </div>
+                <div class="stat-item"><span class="stat-value">4.8</span><span class="stat-label">Rating</span></div>
+                <div class="stat-item"><span class="stat-value">142</span><span class="stat-label">Chapters</span></div>
+                <div class="stat-item"><span class="stat-value">2.1M</span><span class="stat-label">Views</span></div>
             </div>
-
-            <a href="https://poshithraja.github.io/novel_website/read" class="primary-btn">Start Reading</a>
+            <!-- LINK TO READ.HTML -->
+            <a href="read.html" class="primary-btn">Start Reading</a>
             <a href="#" class="bookmark-btn">Add to Library</a>
         </aside>
 
-        <!-- Content -->
         <main class="novel-content">
             <div class="novel-header">
                 <h1>Winter's End</h1>
@@ -216,65 +122,27 @@
                     <span class="tag">Tragedy</span>
                 </div>
             </div>
-
             <p class="novel-synopsis">
                 The winter of 1840 was not merely cold; it was a living thing that hunted the residents of Blackwood Manor. 
                 Elara finds herself trapped within the estate as the snow piles high against the windows, burying secrets that were never meant to be unearthed. 
-                As the frost creeps inside, she realizes the true danger isn't the cold—it's the history written in the ice. 
-                A gripping tale of survival, betrayal, and the chilling silence of a world frozen in time.
             </p>
-
             <div class="chapter-section-title">
                 <span>Chapters</span>
                 <span style="font-size: 0.8rem; color: var(--text-muted);">Latest: Ch. 142</span>
             </div>
-
             <div class="chapter-list">
-                <!-- Chapter Item -->
-                <div class="chapter-row" onclick="alert('Opening Chapter 142...')">
-                    <div class="chapter-info">
-                        <span class="chapter-num">142</span>
-                        <span class="chapter-title">The Thaw Begins</span>
-                    </div>
-                    <span class="chapter-date">Today</span>
+                <!-- LINKS TO READ.HTML -->
+                <div class="chapter-row" onclick="window.location.href='read.html'">
+                    <div class="chapter-info"><span class="chapter-num">142</span><span class="chapter-title">The Thaw Begins</span></div><span class="chapter-date">Today</span>
                 </div>
-                <!-- Chapter Item -->
-                <div class="chapter-row" onclick="alert('Opening Chapter 141...')">
-                    <div class="chapter-info">
-                        <span class="chapter-num">141</span>
-                        <span class="chapter-title">Beneath the Ice</span>
-                    </div>
-                    <span class="chapter-date">Yesterday</span>
+                <div class="chapter-row" onclick="window.location.href='read.html'">
+                    <div class="chapter-info"><span class="chapter-num">141</span><span class="chapter-title">Beneath the Ice</span></div><span class="chapter-date">Yesterday</span>
                 </div>
-                 <!-- Chapter Item -->
-                 <div class="chapter-row" onclick="alert('Opening Chapter 140...')">
-                    <div class="chapter-info">
-                        <span class="chapter-num">140</span>
-                        <span class="chapter-title">Silent Night</span>
-                    </div>
-                    <span class="chapter-date">2 days ago</span>
+                 <div class="chapter-row" onclick="window.location.href='read.html'">
+                    <div class="chapter-info"><span class="chapter-num">140</span><span class="chapter-title">Silent Night</span></div><span class="chapter-date">2 days ago</span>
                 </div>
-                 <!-- Chapter Item -->
-                 <div class="chapter-row" onclick="alert('Opening Chapter 139...')">
-                    <div class="chapter-info">
-                        <span class="chapter-num">139</span>
-                        <span class="chapter-title">The First Ember</span>
-                    </div>
-                    <span class="chapter-date">Nov 24</span>
-                </div>
-                 <!-- Chapter Item -->
-                 <div class="chapter-row" onclick="alert('Opening Chapter 138...')">
-                    <div class="chapter-info">
-                        <span class="chapter-num">138</span>
-                        <span class="chapter-title">Cold Comfort</span>
-                    </div>
-                    <span class="chapter-date">Nov 20</span>
-                </div>
-                <!-- More chapters would act similarly -->
             </div>
-
         </main>
     </div>
-
 </body>
 </html>
