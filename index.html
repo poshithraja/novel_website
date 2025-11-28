@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARRATIVE | Infinite Scroll</title>
+    <title>NARRATIVE | Featured Slider</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
             --text-muted: #888888;
             --accent: #D4AF37;
             --rail-gap: 1.5rem;
-            --cover-width: 160px; /* Fixed width for uniform thumbnails */
+            --cover-width: 160px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,73 +27,139 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent page-wide horizontal scroll */
+            overflow-x: hidden;
         }
 
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
-        
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        
-        /* --- Header & Nav --- */
+
+        /* --- Header --- */
         header {
             padding: 1.5rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: fixed; /* Fixed header for better UX */
+            width: 100%;
             top: 0;
-            background: rgba(5, 5, 5, 0.95);
-            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            font-weight: 600;
-            color: #fff;
-        }
-
+        .logo { font-size: 1.5rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; }
         nav ul { display: flex; gap: 2rem; list-style: none; }
         nav a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
         nav a.active { color: var(--accent); }
 
-        /* --- Hero Section --- */
-        .hero {
-            height: 70vh;
+        /* --- HERO SLIDER SECTION --- */
+        .hero-section {
+            padding-top: 100px; /* Offset for fixed header */
+            padding-bottom: 2rem;
+        }
+
+        .hero-scroll-wrapper {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 0 4%; /* Sides padding */
+            
+            /* Hide scrollbars */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .hero-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+        .hero-slide {
+            min-width: 92vw; /* Peek effect on desktop */
+            height: 75vh;
+            position: relative;
+            scroll-snap-align: center;
+            border-radius: 8px;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            padding: 0 4%;
-            background: radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 50%);
+            justify-content: center;
+            text-align: center;
+            background-color: #111;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
-        .hero-content { max-width: 600px; }
+        /* Dynamic Background Images */
+        .slide-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.4; /* Darken for text readability */
+            transition: transform 5s ease;
+        }
         
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            line-height: 1;
-            margin-bottom: 1rem;
+        /* Subtle zoom effect on hover */
+        .hero-slide:hover .slide-bg { transform: scale(1.05); }
+
+        /* Gradient Overlay */
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #050505 10%, transparent 60%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
         }
 
-        .hero p {
-            color: var(--text-muted);
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+            transform: translateY(20px);
+        }
+
+        .tag {
+            display: inline-block;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero-content p {
             font-size: 1.1rem;
-            margin-bottom: 2rem;
-            max-width: 450px;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .cta-btn {
-            padding: 0.8rem 2rem;
-            background: var(--text-main);
-            color: var(--bg-color);
-            border-radius: 2px;
+        .hero-btn {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 1rem 2.5rem;
             font-weight: 600;
-            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
-        .cta-btn:hover { background: var(--accent); }
+        .hero-btn:hover { background: var(--accent); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
-        /* --- Horizontal Rail Styles --- */
-        section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+
+        /* --- Horizontal Rail Styles (General) --- */
+        section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         
         .section-header {
             padding: 0 4%;
@@ -110,83 +176,46 @@
             display: flex;
             gap: var(--rail-gap);
             overflow-x: auto;
-            padding: 1rem 4% 2rem 4%; /* Padding allows hover effects effectively */
+            padding: 1rem 4% 2rem 4%;
             scroll-snap-type: x mandatory;
-            
-            /* Hide scrollbars for clean look */
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
-        .scroll-rail::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+        .scroll-rail::-webkit-scrollbar { display: none; }
 
-        /* --- Book Thumbnail Card --- */
         .book-card {
-            flex: 0 0 var(--cover-width); /* Don't shrink, fixed width */
+            flex: 0 0 var(--cover-width);
             scroll-snap-align: start;
-            transition: transform 0.3s ease, opacity 0.3s;
             cursor: pointer;
+            transition: transform 0.3s;
         }
-
-        .book-card:hover {
-            transform: translateY(-8px);
-        }
-
-        /* Fade out non-hovered items (optional, fancy effect) */
-        .scroll-rail:hover .book-card:not(:hover) {
-            opacity: 0.5;
-        }
+        .book-card:hover { transform: translateY(-8px); }
 
         .cover-art {
-            width: 100%;
-            aspect-ratio: 2/3; /* Standard Book Ratio */
+            width: 100%; aspect-ratio: 2/3;
             background: #1a1a1a;
-            border-radius: 4px;
-            overflow: hidden;
+            border-radius: 4px; overflow: hidden;
             margin-bottom: 0.8rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             position: relative;
         }
-
-        .cover-art img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .book-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .book-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Badge Overlay --- */
+        .cover-art img { width: 100%; height: 100%; object-fit: cover; }
+        
         .badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
-            color: #fff;
-            font-size: 0.6rem;
-            padding: 4px 8px;
-            text-transform: uppercase;
-            border-radius: 2px;
-            border: 1px solid rgba(255,255,255,0.2);
+            position: absolute; top: 8px; left: 8px;
+            background: rgba(0,0,0,0.8); color: #fff;
+            font-size: 0.6rem; padding: 3px 8px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2);
         }
+
+        .book-info h3 { font-size: 1.1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .book-info p { font-size: 0.8rem; color: var(--text-muted); }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            :root { --cover-width: 130px; }
-            .hero h1 { font-size: 3rem; }
+            .hero-slide { min-width: 90vw; height: 65vh; } /* Taller on mobile */
+            .hero-content h1 { font-size: 2.5rem; }
             nav { display: none; }
-            .scroll-rail { padding-bottom: 1rem; }
+            :root { --cover-width: 130px; }
         }
     </style>
 </head>
@@ -204,18 +233,48 @@
         </nav>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <span style="color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Featured Novel</span>
-            <h1>The Glass <br>Symphony</h1>
-            <p>A masterpiece of suspense that shatters every expectation. Available to read exclusively on Narrative.</p>
-            <a href="#" class="cta-btn">Start Reading</a>
-        </div>
-    </section>
+    <!-- HERO SLIDER -->
+    <div class="hero-section">
+        <div class="hero-scroll-wrapper">
+            
+            <!-- Slide 1 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
+                <div class="hero-content">
+                    <span class="tag">Featured Premiere</span>
+                    <h1>The Glass <br>Symphony</h1>
+                    <p>A masterpiece of suspense that shatters every expectation. The critics are calling it the novel of the decade.</p>
+                    <a href="#" class="hero-btn">Start Reading</a>
+                </div>
+            </div>
 
-    <!-- RAIL 1: TRENDING -->
-    <section>
+            <!-- Slide 2 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
+                <div class="hero-content">
+                    <span class="tag">Trending Fantasy</span>
+                    <h1>Kingdom of <br>Ash & Bone</h1>
+                    <p>In a world where magic is forbidden, one sorcerer rises to reclaim the throne that was stolen centuries ago.</p>
+                    <a href="#" class="hero-btn">Read Chapter 1</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
+                <div class="hero-content">
+                    <span class="tag">Editor's Choice</span>
+                    <h1>Neon <br>Vendetta</h1>
+                    <p>A cyberpunk noir thriller set in the rain-soaked streets of New Tokyo. Justice has a price.</p>
+                    <a href="#" class="hero-btn">View Series</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TRENDING RAIL -->
+    <section class="list-section">
         <div class="section-header">
             <h2>Trending Now</h2>
             <a href="#" class="view-more">View All</a>
@@ -263,7 +322,6 @@
                     <p>Thriller • 4.6★</p>
                 </div>
             </div>
-            <!-- Book 5 -->
             <div class="book-card">
                 <div class="cover-art">
                     <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover">
@@ -273,21 +331,11 @@
                     <p>Adventure • 4.5★</p>
                 </div>
             </div>
-             <!-- Book 6 -->
-             <div class="book-card">
-                <div class="cover-art">
-                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600&auto=format&fit=crop" alt="Cover">
-                </div>
-                <div class="book-info">
-                    <h3>Neon Dust</h3>
-                    <p>Cyberpunk • 4.9★</p>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- RAIL 2: LATEST RELEASES -->
-    <section>
+    <!-- LATEST RELEASES RAIL -->
+    <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
             <a href="#" class="view-more">View All</a>
@@ -300,4 +348,46 @@
                     <img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover">
                 </div>
                 <div class="book-info">
-                    <h3>Winter's End
+                    <h3>Winter's End</h3>
+                    <p>Drama • Just Now</p>
+                </div>
+            </div>
+            <!-- Book B -->
+            <div class="book-card">
+                <div class="cover-art">
+                    <span class="badge">Updated</span>
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>Code Breaker</h3>
+                    <p>Tech • 1h ago</p>
+                </div>
+            </div>
+            <!-- Book C -->
+            <div class="book-card">
+                <div class="cover-art">
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>The Alchemist</h3>
+                    <p>Fantasy • 2h ago</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="cover-art">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>Stellar Drift</h3>
+                    <p>Sci-Fi • 5h ago</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 3rem 5%; text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        <p>&copy; 2025 Narrative. Minimalist Reading.</p>
+    </footer>
+
+</body>
+</html>
