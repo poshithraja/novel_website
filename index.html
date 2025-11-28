@@ -26,7 +26,7 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent scroll when overlays are open */
+            overflow-x: hidden;
         }
 
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
@@ -57,89 +57,39 @@
             z-index: 1001;
         }
 
-        /* Search Button (Icon) */
-        .search-btn svg {
-            width: 20px;
-            height: 20px;
-            stroke: #fff;
-            transition: stroke 0.3s;
-        }
+        .search-btn svg { width: 20px; height: 20px; stroke: #fff; transition: stroke 0.3s; }
         .search-btn:hover svg { stroke: var(--accent); }
 
-        /* Menu Button (Text) */
-        .menu-btn {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-            color: #fff;
-            position: relative;
-        }
-        
-        .menu-btn::after {
-            content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px;
-            background: var(--accent); transition: width 0.3s;
-        }
+        .menu-btn { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; color: #fff; position: relative; }
+        .menu-btn::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px; background: var(--accent); transition: width 0.3s; }
         .menu-btn:hover::after { width: 100%; }
 
 
-        /* --- SEARCH OVERLAY --- */
+        /* --- OVERLAYS (Search & Menu) --- */
         .search-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 0;
-            background: #0a0a0a;
-            z-index: 999;
-            overflow: hidden;
+            background: #0a0a0a; z-index: 999; overflow: hidden;
             transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; align-items: center; justify-content: center;
         }
-
         .search-overlay.active { height: 30vh; border-bottom: 1px solid rgba(255,255,255,0.1); }
-
-        .search-input {
-            background: transparent; border: none; border-bottom: 1px solid #333;
-            font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff;
-            width: 60%; padding: 1rem 0; outline: none; text-align: center;
-        }
-        .search-input::placeholder { color: #333; font-style: italic; }
-        
-        .close-search {
-            position: absolute; top: 2rem; right: 4%; font-size: 2rem; color: #555;
-        }
+        .search-input { background: transparent; border: none; border-bottom: 1px solid #333; font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; width: 60%; padding: 1rem 0; outline: none; text-align: center; }
+        .close-search { position: absolute; top: 2rem; right: 4%; font-size: 2rem; color: #555; }
         .close-search:hover { color: #fff; }
 
-
-        /* --- FULLSCREEN MENU OVERLAY --- */
         .menu-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(15px);
-            z-index: 998;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease;
+            background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px);
+            z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-
         .menu-overlay.active { opacity: 1; pointer-events: all; }
-
-        .menu-links {
-            display: flex; flex-direction: column; align-items: center; gap: 2rem;
-        }
-
-        .menu-link {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.3s, transform 0.3s;
-        }
-
+        .menu-links { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .menu-link { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: #888; cursor: pointer; transition: color 0.3s, transform 0.3s; }
         .menu-link:hover { color: var(--accent); transform: scale(1.05); }
-        
-        .menu-footer {
-            position: absolute; bottom: 3rem; font-size: 0.8rem; color: #444; text-transform: uppercase; letter-spacing: 0.1em;
-        }
+        .menu-footer { position: absolute; bottom: 3rem; font-size: 0.8rem; color: #444; text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* --- PAGE CONTENT (Hero, Rails, etc) --- */
+        /* --- HERO & RAILS --- */
         .hero-section { padding-top: 100px; padding-bottom: 2rem; }
         .hero-scroll-wrapper { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 4%; scrollbar-width: none; }
         .hero-scroll-wrapper::-webkit-scrollbar { display: none; }
@@ -156,7 +106,6 @@
         .hero-btn { display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem; font-weight: 600; letter-spacing: 0.05em; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
         .hero-btn:hover { background: var(--accent); }
 
-        /* Rails & Footer Styles from previous step... */
         section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .section-header { padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
         .section-title { font-size: 2rem; color: #fff; }
@@ -165,11 +114,13 @@
         .scroll-rail::-webkit-scrollbar { display: none; }
         .book-card { flex: 0 0 var(--cover-width); scroll-snap-align: start; cursor: pointer; transition: transform 0.3s; }
         .book-card:hover { transform: translateY(-8px); }
-        .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; position: relative; }
+        .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; position: relative; pointer-events: none; /* Let click pass to card */ }
         .cover-art img { width: 100%; height: 100%; object-fit: cover; }
         .badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
         .book-info h3 { font-size: 1.1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .book-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* --- FOOTER --- */
         .brand-signature { padding: 6rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--bg-color), #0a0a0a); border-top: 1px solid rgba(255,255,255,0.03); }
         .brand-title { font-size: 4rem; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--accent); background: linear-gradient(180deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .brand-desc { max-width: 600px; margin: 0 auto; color: var(--text-muted); font-size: 1rem; line-height: 1.8; font-weight: 300; }
@@ -179,10 +130,57 @@
         .footer-links a:hover { color: var(--accent); }
         .footer-copyright { font-size: 0.75rem; color: #444; }
 
+        /* --- QUICK VIEW MODAL (NEW) --- */
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .modal-backdrop.active { opacity: 1; pointer-events: all; }
+
+        .modal-content {
+            background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1);
+            width: 90%; max-width: 900px;
+            display: grid; grid-template-columns: 300px 1fr;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8);
+            transform: translateY(30px); transition: transform 0.4s ease;
+            position: relative;
+        }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+
+        .modal-img-wrapper { position: relative; height: 100%; background: #000; }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        
+        .modal-details { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        
+        .modal-close {
+            position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: #666;
+            background: none; border: none; cursor: pointer; transition: color 0.3s; z-index: 10;
+        }
+        .modal-close:hover { color: #fff; }
+
+        .modal-tag {
+            color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block;
+        }
+        .modal-title { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; color: #fff; }
+        .modal-author { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: #aaa; margin-bottom: 2rem; display: block; }
+        .modal-desc { color: #ccc; font-size: 1rem; line-height: 1.7; margin-bottom: 2.5rem; }
+
+        .modal-btn {
+            background: var(--accent); color: #000; padding: 1rem 2rem;
+            font-weight: 600; letter-spacing: 0.05em; display: inline-block;
+            text-align: center; width: max-content;
+        }
+        .modal-btn:hover { background: #fff; }
+
+        /* Mobile Modal */
         @media (max-width: 768px) {
-            .hero-slide { min-width: 90vw; height: 65vh; }
+            .modal-content { grid-template-columns: 1fr; max-width: 400px; margin: 20px; max-height: 90vh; overflow-y: auto; }
+            .modal-img-wrapper { height: 250px; }
+            .modal-title { font-size: 2.2rem; }
             .brand-title { font-size: 3rem; }
-            .menu-link { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -191,13 +189,9 @@
     <header>
         <div class="logo">NARRATIVE.</div>
         <div class="header-actions">
-            <!-- Search Icon Button -->
-            <button class="search-btn" id="searchTrigger" aria-label="Search">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <button class="search-btn" id="searchTrigger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <!-- Menu Text Button -->
             <button class="menu-btn" id="menuTrigger">MENU</button>
         </div>
     </header>
@@ -215,10 +209,24 @@
             <a href="#" class="menu-link">About Us</a>
             <a href="#" class="menu-link">Trending</a>
             <a href="#" class="menu-link">Authors</a>
-            <a href="#" class="menu-link">Sign In</a>
         </nav>
-        <div class="menu-footer">
-            Narrative &copy; 2025
+        <div class="menu-footer">Narrative &copy; 2025</div>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="modal-backdrop" id="quickViewModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-img-wrapper">
+                <img src="" alt="Book Cover" class="modal-img" id="modalImg">
+            </div>
+            <div class="modal-details">
+                <span class="modal-tag">Selected Title</span>
+                <h2 class="modal-title" id="modalTitle">Title</h2>
+                <span class="modal-author" id="modalAuthor">Author</span>
+                <p class="modal-desc" id="modalDesc">Description goes here...</p>
+                <a href="#" class="modal-btn">Start Reading</a>
+            </div>
         </div>
     </div>
 
@@ -245,35 +253,83 @@
                     <a href="#" class="hero-btn">Read Chapter 1</a>
                 </div>
             </div>
-             <div class="hero-slide">
-                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" class="slide-bg" alt="Background">
-                <div class="hero-content">
-                    <span class="tag">Editor's Choice</span>
-                    <h1>Neon <br>Vendetta</h1>
-                    <span class="hero-author">Arthur West</span>
-                    <p>A cyberpunk noir thriller set in the rain-soaked streets.</p>
-                    <a href="#" class="hero-btn">View Series</a>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- TRENDING RAIL -->
+    <!-- TRENDING RAIL (Interactive) -->
     <section class="list-section">
         <div class="section-header">
             <h2>Trending Now</h2>
             <a href="#" class="view-more">View All</a>
         </div>
-        <div class="scroll-rail">
-            <div class="book-card"><div class="cover-art"><span class="badge">#1 Top</span><img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Silent Echoes</h3><p>Mystery • 4.9★</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi • 4.8★</p></div></div>
-            <div class="book-card"><div class="cover-art"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Velvet Night</h3><p>Romance • 4.7★</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>The Architect</h3><p>Thriller • 4.6★</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Lost City</h3><p>Adventure • 4.5★</p></div></div>
+        <div class="scroll-rail" id="trendingRail">
+            
+            <!-- Item 1 -->
+            <div class="book-card" 
+                 data-title="Silent Echoes" 
+                 data-author="By Elena Vance" 
+                 data-desc="When a renowned architect vanishes, the blueprints he left behind reveal a city that doesn't exist... yet. A twisting mystery that defies physics."
+                 data-img="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art">
+                    <span class="badge">#1 Top</span>
+                    <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>Silent Echoes</h3>
+                    <p>Mystery • 4.9★</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="book-card"
+                 data-title="Dark Horizons"
+                 data-author="By J.S. Core"
+                 data-desc="Commander Shepard finds an artifact that predates the stars themselves. The galaxy is about to change, and not for the better."
+                 data-img="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art">
+                    <img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>Dark Horizons</h3>
+                    <p>Sci-Fi • 4.8★</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="book-card"
+                 data-title="Velvet Night"
+                 data-author="By Sarah O'Conner"
+                 data-desc="A romance blossoming amidst the Victorian underground espionage network. Trust is a currency they cannot afford."
+                 data-img="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art">
+                    <span class="badge">Hot</span>
+                    <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>Velvet Night</h3>
+                    <p>Romance • 4.7★</p>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="book-card"
+                 data-title="The Architect"
+                 data-author="By M.K. Ultra"
+                 data-desc="He builds mazes for the government. Now he is trapped in one of his own creations."
+                 data-img="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art">
+                    <img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover">
+                </div>
+                <div class="book-info">
+                    <h3>The Architect</h3>
+                    <p>Thriller • 4.6★</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- LATEST RAIL -->
+    <!-- LATEST RAIL (Static for now) -->
     <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
@@ -281,19 +337,14 @@
         </div>
         <div class="scroll-rail">
             <div class="book-card"><div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Winter's End</h3><p>Drama • Just Now</p></div></div>
-            <div class="book-card"><div class="cover-art"><span class="badge">Updated</span><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Code Breaker</h3><p>Tech • 1h ago</p></div></div>
+            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Code Breaker</h3><p>Tech • 1h ago</p></div></div>
             <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>The Alchemist</h3><p>Fantasy • 2h ago</p></div></div>
-            <div class="book-card"><div class="cover-art"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info"><h3>Stellar Drift</h3><p>Sci-Fi • 5h ago</p></div></div>
         </div>
     </section>
 
-    <!-- BRAND SIGNATURE -->
     <section class="brand-signature">
         <h1 class="brand-title">NARRATIVE.</h1>
-        <p class="brand-desc">
-            We believe stories are the architecture of the soul. 
-            <strong>Narrative</strong> is a curated digital library designed for the modern reader.
-        </p>
+        <p class="brand-desc">We believe stories are the architecture of the soul.</p>
     </section>
 
     <footer>
@@ -301,55 +352,74 @@
             <a href="#">About Us</a>
             <a href="#">Terms & Conditions</a>
             <a href="#">Privacy Policy</a>
-            <a href="#">Cookie Policy</a>
         </div>
-        <div class="footer-copyright">
-            &copy; 2025 Narrative Inc. All rights reserved.
-        </div>
+        <div class="footer-copyright">&copy; 2025 Narrative Inc.</div>
     </footer>
 
     <!-- INTERACTION SCRIPTS -->
     <script>
+        // UI Elements
         const menuBtn = document.getElementById('menuTrigger');
         const menuOverlay = document.getElementById('menuOverlay');
-        
         const searchBtn = document.getElementById('searchTrigger');
         const searchOverlay = document.getElementById('searchOverlay');
         const closeSearch = document.getElementById('closeSearch');
+        
+        // Modal Elements
+        const modal = document.getElementById('quickViewModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalAuthor = document.getElementById('modalAuthor');
+        const modalDesc = document.getElementById('modalDesc');
 
-        // Toggle Menu
+        // --- MENU & SEARCH LOGIC ---
         menuBtn.addEventListener('click', () => {
             menuOverlay.classList.toggle('active');
-            if(menuOverlay.classList.contains('active')) {
-                menuBtn.textContent = 'CLOSE';
-                searchOverlay.classList.remove('active'); // Close search if open
-            } else {
-                menuBtn.textContent = 'MENU';
-            }
+            menuBtn.textContent = menuOverlay.classList.contains('active') ? 'CLOSE' : 'MENU';
+            searchOverlay.classList.remove('active');
         });
 
-        // Open Search
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             document.querySelector('.search-input').focus();
-            
-            // Close menu if open
             menuOverlay.classList.remove('active');
             menuBtn.textContent = 'MENU';
         });
 
-        // Close Search
-        closeSearch.addEventListener('click', () => {
-            searchOverlay.classList.remove('active');
-        });
+        closeSearch.addEventListener('click', () => searchOverlay.classList.remove('active'));
 
-        // Close overlays when clicking a link
-        document.querySelectorAll('.menu-link').forEach(link => {
-            link.addEventListener('click', () => {
-                menuOverlay.classList.remove('active');
-                menuBtn.textContent = 'MENU';
+        // --- MODAL LOGIC (TRENDING RAIL) ---
+        // Select all book cards inside the trending rail
+        const trendingCards = document.querySelectorAll('#trendingRail .book-card');
+
+        trendingCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // 1. Get data from clicked card
+                const title = card.getAttribute('data-title');
+                const author = card.getAttribute('data-author');
+                const desc = card.getAttribute('data-desc');
+                const img = card.getAttribute('data-img');
+
+                // 2. Populate Modal
+                modalTitle.textContent = title;
+                modalAuthor.textContent = author;
+                modalDesc.textContent = desc;
+                modalImg.src = img;
+
+                // 3. Show Modal
+                modal.classList.add('active');
             });
         });
+
+        // Close Modal Logic
+        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+        
+        // Close modal if clicking outside the content box
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
     </script>
 
 </body>
