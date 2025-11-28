@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARRATIVE | Center Focus</title>
+    <title>NARRATIVE | Full Focus</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +15,8 @@
             --text-main: #e0e0e0;
             --text-muted: #888888;
             --accent: #D4AF37;
-            --rail-gap: 2rem; /* Increased gap for scale effect */
-            --cover-width: 180px; /* Slightly larger for impact */
+            --rail-gap: 2rem;
+            --cover-width: 180px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,9 +34,7 @@
         button { background: none; border: none; cursor: pointer; color: inherit; font-family: inherit; }
 
         /* --- HEADER --- */
-        header {
-            padding: 1.5rem 4%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        header { padding: 1.5rem 4%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .logo { font-size: 1.5rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; z-index: 1001; }
         .header-actions { display: flex; align-items: center; gap: 2rem; z-index: 1001; }
         .search-btn svg { width: 20px; height: 20px; stroke: #fff; transition: stroke 0.3s; }
@@ -47,7 +45,6 @@
         .search-overlay.active { height: 30vh; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .search-input { background: transparent; border: none; border-bottom: 1px solid #333; font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; width: 60%; padding: 1rem 0; outline: none; text-align: center; }
         .close-search { position: absolute; top: 2rem; right: 4%; font-size: 2rem; color: #555; }
-        
         .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .menu-overlay.active { opacity: 1; pointer-events: all; }
         .menu-links { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
@@ -71,58 +68,43 @@
         .hero-content p { font-size: 1.1rem; color: #ccc; margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
         .hero-btn { display: inline-block; background: #fff; color: #000; padding: 1rem 2.5rem; font-weight: 600; letter-spacing: 0.05em; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
 
-        /* --- CENTER-FOCUSED RAIL (Key Logic) --- */
+        /* --- CENTER-FOCUSED RAILS (Shared Styles) --- */
         section.list-section { padding: 3rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .section-header { padding: 0 4%; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
         .section-title { font-size: 2rem; color: #fff; }
         
-        .scroll-rail {
+        /* The .focus-rail class applies the padding needed for centering */
+        .scroll-rail.focus-rail {
             display: flex;
             gap: var(--rail-gap);
             overflow-x: auto;
-            /* Padding ensures first/last items can be centered */
-            padding: 3rem 50vw 4rem 50vw; 
+            padding: 3rem 50vw 4rem 50vw; /* Key for centering logic */
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
-            align-items: center; /* Vertically center items for scale effect */
+            align-items: center;
         }
         .scroll-rail::-webkit-scrollbar { display: none; }
 
         .book-card {
             flex: 0 0 var(--cover-width);
-            scroll-snap-align: center; /* Important: Snap to center */
+            scroll-snap-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0.4; /* Default state: Dimmed */
-            transform: scale(0.9); /* Default state: Small */
+            opacity: 0.4;
+            transform: scale(0.9);
             position: relative;
         }
 
-        /* Active Class (Added via JS) */
-        .book-card.active {
-            opacity: 1;
-            transform: scale(1.2); /* High Lift */
-            z-index: 10;
-        }
-
-        .cover-art {
-            width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .book-card.active { opacity: 1; transform: scale(1.2); z-index: 10; }
+        .cover-art { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 4px; overflow: hidden; margin-bottom: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .cover-art img { width: 100%; height: 100%; object-fit: cover; }
         .badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.6rem; padding: 3px 8px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
-        
-        /* Hide info on non-active items to reduce clutter */
-        .book-info {
-            opacity: 0; transition: opacity 0.3s; text-align: center;
-        }
+        .book-info { opacity: 0; transition: opacity 0.3s; text-align: center; }
         .book-card.active .book-info { opacity: 1; transform: translateY(10px); }
-        
         .book-info h3 { font-size: 1rem; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
         .book-info p { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
 
-
-        /* --- MODAL (Same as before) --- */
+        /* --- MODAL --- */
         .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .modal-backdrop.active { opacity: 1; pointer-events: all; }
         .modal-content { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); width: 90%; max-width: 900px; display: grid; grid-template-columns: 300px 1fr; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8); transform: translateY(30px); transition: transform 0.4s ease; position: relative; }
@@ -150,7 +132,7 @@
         @media (max-width: 768px) {
             .modal-content { grid-template-columns: 1fr; max-width: 400px; margin: 20px; max-height: 90vh; overflow-y: auto; }
             .modal-img-wrapper { height: 250px; }
-            .scroll-rail { padding: 3rem 35vw 4rem 35vw; } /* Adjust padding for mobile center */
+            .scroll-rail.focus-rail { padding: 3rem 35vw 4rem 35vw; } /* Mobile padding */
         }
     </style>
 </head>
@@ -219,53 +201,65 @@
         </div>
     </div>
 
-    <!-- TRENDING RAIL WITH CENTER FOCUS -->
+    <!-- TRENDING RAIL -->
     <section class="list-section">
         <div class="section-header">
             <h2>Trending Now</h2>
             <a href="#" class="view-more">Drag to Explore</a>
         </div>
-        <!-- "focus-rail" class triggers the JS logic -->
         <div class="scroll-rail focus-rail" id="trendingRail">
-            
             <div class="book-card" data-title="Silent Echoes" data-author="By Elena Vance" data-desc="A twisting mystery that defies physics." data-img="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop">
                 <div class="cover-art"><span class="badge">#1 Top</span><img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Silent Echoes</h3><p>Mystery</p></div>
             </div>
-
             <div class="book-card" data-title="Dark Horizons" data-author="By J.S. Core" data-desc="The galaxy is about to change." data-img="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Dark Horizons</h3><p>Sci-Fi</p></div>
             </div>
-
             <div class="book-card" data-title="Velvet Night" data-author="By Sarah O'Conner" data-desc="Trust is a currency they cannot afford." data-img="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop">
                 <div class="cover-art"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Velvet Night</h3><p>Romance</p></div>
             </div>
-            
             <div class="book-card" data-title="The Architect" data-author="By M.K. Ultra" data-desc="Trapped in one of his own creations." data-img="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1514593214839-ce1849100055?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>The Architect</h3><p>Thriller</p></div>
             </div>
-
-            <div class="book-card" data-title="Lost City" data-author="By A. Croft" data-desc="The jungle hides more than just ruins." data-img="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop">
+             <div class="book-card" data-title="Lost City" data-author="By A. Croft" data-desc="The jungle hides more than just ruins." data-img="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop">
                 <div class="cover-art"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
                 <div class="book-info"><h3>Lost City</h3><p>Adventure</p></div>
             </div>
-
         </div>
     </section>
 
-    <!-- LATEST RAIL (Normal Scroll) -->
+    <!-- LATEST RAIL (NOW INTERACTIVE) -->
     <section class="list-section">
         <div class="section-header">
             <h2>Latest Releases</h2>
-            <a href="#" class="view-more">View All</a>
+            <a href="#" class="view-more">Drag to Explore</a>
         </div>
-        <div class="scroll-rail" style="padding: 1rem 4% 2rem 4%;"> <!-- Override padding for normal rail -->
-            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>Winter's End</h3><p>Drama</p></div></div>
-            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>Code Breaker</h3><p>Tech</p></div></div>
-            <div class="book-card" style="opacity: 1; transform: scale(1);"><div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div><div class="book-info" style="opacity: 1;"><h3>The Alchemist</h3><p>Fantasy</p></div></div>
+        <!-- Added "focus-rail" class and ID -->
+        <div class="scroll-rail focus-rail" id="latestRail">
+            
+            <div class="book-card" data-title="Winter's End" data-author="By L. James" data-desc="A dramatic retelling of the winter of 1840." data-img="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Winter's End</h3><p>Drama</p></div>
+            </div>
+
+            <div class="book-card" data-title="Code Breaker" data-author="By R. Turing" data-desc="Silicon Valley secrets come to light." data-img="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Code Breaker</h3><p>Tech</p></div>
+            </div>
+
+            <div class="book-card" data-title="The Alchemist" data-author="By P. Coe" data-desc="A journey of destiny." data-img="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>The Alchemist</h3><p>Fantasy</p></div>
+            </div>
+            
+            <div class="book-card" data-title="Stellar Drift" data-author="By C. Sagan" data-desc="Lost in the void of space." data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop">
+                <div class="cover-art"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&auto=format&fit=crop" alt="Cover"></div>
+                <div class="book-info"><h3>Stellar Drift</h3><p>Sci-Fi</p></div>
+            </div>
+
         </div>
     </section>
 
@@ -284,7 +278,7 @@
     </footer>
 
     <script>
-        // --- EXISTING LOGIC (Menu, Search, Modal) ---
+        // --- EXISTING UI LOGIC ---
         const menuBtn = document.getElementById('menuTrigger');
         const menuOverlay = document.getElementById('menuOverlay');
         const searchBtn = document.getElementById('searchTrigger');
@@ -303,7 +297,7 @@
         closeModal.addEventListener('click', () => modal.classList.remove('active'));
         modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
-        // --- MODAL TRIGGER FOR ALL CARDS ---
+        // --- MODAL TRIGGER ---
         document.querySelectorAll('.book-card').forEach(card => {
             card.addEventListener('click', () => {
                 if(card.hasAttribute('data-title')) {
@@ -317,42 +311,44 @@
         });
 
 
-        // --- CENTER FOCUS LOGIC (The New Stuff) ---
-        const rail = document.getElementById('trendingRail');
-        const cards = rail.querySelectorAll('.book-card');
-
-        function updateFocus() {
-            const railCenter = rail.getBoundingClientRect().left + rail.offsetWidth / 2;
+        // --- SHARED CENTER FOCUS LOGIC ---
+        function initFocusRail(railId) {
+            const rail = document.getElementById(railId);
+            if (!rail) return;
             
-            // Find which card is closest to center
-            let closestCard = null;
-            let minDistance = Infinity;
+            const cards = rail.querySelectorAll('.book-card');
 
-            cards.forEach(card => {
-                const cardCenter = card.getBoundingClientRect().left + card.offsetWidth / 2;
-                const distance = Math.abs(railCenter - cardCenter);
-                
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestCard = card;
-                }
-            });
+            function updateFocus() {
+                const railCenter = rail.getBoundingClientRect().left + rail.offsetWidth / 2;
+                let closestCard = null;
+                let minDistance = Infinity;
 
-            // Update classes
-            cards.forEach(card => {
-                if (card === closestCard) {
-                    card.classList.add('active');
-                } else {
-                    card.classList.remove('active');
-                }
-            });
+                cards.forEach(card => {
+                    const cardCenter = card.getBoundingClientRect().left + card.offsetWidth / 2;
+                    const distance = Math.abs(railCenter - cardCenter);
+                    
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestCard = card;
+                    }
+                });
+
+                cards.forEach(card => {
+                    if (card === closestCard) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            }
+
+            rail.addEventListener('scroll', updateFocus);
+            updateFocus(); // Initial check
         }
 
-        // Listen for scroll
-        rail.addEventListener('scroll', updateFocus);
-        
-        // Initial calculation
-        updateFocus();
+        // Initialize both rails
+        initFocusRail('trendingRail');
+        initFocusRail('latestRail');
 
     </script>
 
